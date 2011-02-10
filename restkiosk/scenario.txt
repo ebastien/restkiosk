@@ -1,0 +1,60 @@
+rails new restkiosk
+
+./script/rails generate model booking
+./script/rails generate model bag weight:float
+./script/rails generate model seat
+./script/rails generate model passenger name:string authenticated:boolean
+
+<edit migrations and models to add references>
+
+rake db:create
+rake db:migrate
+
+./script/rails generate controller kiosk
+./script/rails generate controller checkin
+./script/rails generate controller identities
+./script/rails generate controller belt
+./script/rails generate controller receipt
+./script/rails generate controller pass
+
+<add mime type>
+
+Booking.create
+Passenger.create :name => "Toto", :booking => Booking.first
+Passenger.create :name => "Titi", :booking => Booking.first
+
+curl "http://localhost:3000/kiosk" -v -H "Accept: application/vnd.restkiosk+xml"
+
+curl "http://localhost:3000/kiosk" -v -H "Accept: application/vnd.restkiosk+xml" -X POST -H "Content-type: application/vnd.restkiosk+xml" -d "<booking><id>1</id></booking>"
+
+curl "http://localhost:3000/checkins/1" -v -H "Accept: application/vnd.restkiosk+xml"
+
+curl "http://localhost:3000/checkins/1/identities" -v -H "Accept: application/vnd.restkiosk+xml"
+
+curl "http://localhost:3000/checkins/1/identities" -v -H "Accept: application/vnd.restkiosk+xml" -X PUT -H "Content-type: application/vnd.restkiosk+xml" -d "<identities><identity><name>Toto</name></identity><identity><name>Titi</name></identity></identities>"
+
+curl "http://localhost:3000/checkins/1" -v -H "Accept: application/vnd.restkiosk+xml"
+
+curl "http://localhost:3000/checkins/1/belt" -v -H "Accept: application/vnd.restkiosk+xml"
+
+curl "http://localhost:3000/checkins/1/belt" -v -H "Accept: application/vnd.restkiosk+xml" -X POST -H "Content-type: application/vnd.restkiosk+xml" -d "<bag><weight>5</weight></bag>"
+
+curl "http://localhost:3000/receipts/1" -v -H "Accept: application/vnd.restkiosk+xml"
+
+curl "http://localhost:3000/checkins/1/belt" -v -H "Accept: application/vnd.restkiosk+xml" -X POST -H "Content-type: application/vnd.restkiosk+xml" -d "<bag><weight>7</weight></bag>"
+
+curl "http://localhost:3000/receipts/2" -v -H "Accept: application/vnd.restkiosk+xml"
+
+curl "http://localhost:3000/receipts/2" -v -H "Accept: application/vnd.restkiosk+xml" -X DELETE
+
+curl "http://localhost:3000/checkins/1/belt" -v -H "Accept: application/vnd.restkiosk+xml"
+
+curl "http://localhost:3000/checkins/1" -v -H "Accept: application/vnd.restkiosk+xml"
+
+curl "http://localhost:3000/checkins/1" -v -H "Accept: application/vnd.restkiosk+xml" -X DELETE
+
+curl "http://localhost:3000/passes/1" -v -H "Accept: application/vnd.restkiosk+xml"
+
+curl "http://localhost:3000/passes/2" -v -H "Accept: application/vnd.restkiosk+xml"
+
+
