@@ -10,12 +10,12 @@ rails new restkiosk
 rake db:create
 rake db:migrate
 
-./script/rails generate controller kiosk
-./script/rails generate controller checkin
+./script/rails generate controller kiosks
+./script/rails generate controller checkins
 ./script/rails generate controller identities
-./script/rails generate controller belt
-./script/rails generate controller receipt
-./script/rails generate controller pass
+./script/rails generate controller belts
+./script/rails generate controller receipts
+./script/rails generate controller passes
 
 <add mime type>
 
