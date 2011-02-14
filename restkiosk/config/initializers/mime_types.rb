@@ -6,14 +6,6 @@
 
 Mime::Type.register "application/vnd.restkiosk+xml", :restkiosk
 
-# module Tokamak
-#   module Builder
-#     class Xml
-#       builder_for "application/xml", "text/xml", "application/vnd.restkiosk+xml"
-#     end
-#   end
-# end
-
 Restkiosk::Application.configure do
   config.middleware.delete "ActionDispatch::ParamsParser"
   config.middleware.use ActionDispatch::ParamsParser, {Mime::RESTKIOSK => :xml_simple}
