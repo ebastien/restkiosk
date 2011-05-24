@@ -20,8 +20,8 @@ rake db:migrate
 <add mime type>
 
 Booking.create
-Passenger.create :name => "Toto", :booking => Booking.first
-Passenger.create :name => "Titi", :booking => Booking.first
+Passenger.create :name => "Dupond", :booking => Booking.first
+Passenger.create :name => "Dupont", :booking => Booking.first
 
 curl "http://localhost:3000/kiosk" -v -H "Accept: application/vnd.restkiosk+xml"
 
